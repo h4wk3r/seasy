@@ -8,7 +8,6 @@ NC='\033[0m'
 
 check_base()
 {
-    echo ""
     # Check OS Type
     os=$(uname -o)
     echo -e '\E[32m'"Operating System Type : \033[0m"$os
@@ -32,7 +31,9 @@ check_base()
     echo -e '\E[32m'"Hostname : \033[0m"$HOSTNAME
 }
 
+echo ""
 check_base
 
+echo ""
 exit 0
 
