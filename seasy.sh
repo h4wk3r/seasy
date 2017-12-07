@@ -40,9 +40,13 @@ check_ip()
 check_ram()
 {
         echo -e '\E[32m'"Utilisation Mémoire : ${NC}"
-	free -ho |
-	awk '{print (NR==1?"Type":""), $1, $2, $3, (NR==1?"":$4)}' |
-	column -t
+	free -h | awk '{print (NR==1?"Type":""), $1, $2, $3, (NR==1?"":$4)}' | column -t | grep ":"
+}
+
+check_fs()
+{ 
+	echo -e '\E[32m'"Pourcentage d'espace utilisé des FileSystems : ${NC}"
+	df -h | awk ' {print $6, $5, $2 } ' | column -t | grep -E "/dev|/boot|/etc|/home"
 }
 
 echo ""
@@ -52,6 +56,7 @@ check_ip
 echo ""
 check_ram
 echo ""
-
+check_fs
+echo ""
 exit 0
 
