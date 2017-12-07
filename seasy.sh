@@ -37,10 +37,20 @@ check_ip()
 	ip -o addr | awk '!/^[0-9]*: ?lo|link\/ether/ {gsub("/", " "); print $2" "$4}'
 }
 
+check_ram()
+{
+        echo -e '\E[32m'"Utilisation Mémoire : ${NC}"
+	free -ho |
+	awk '{print (NR==1?"Type":""), $1, $2, $3, (NR==1?"":$4)}' |
+	column -t
+}
+
 echo ""
 check_base
 echo ""
 check_ip
+echo ""
+check_ram
 echo ""
 
 exit 0
