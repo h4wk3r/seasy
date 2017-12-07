@@ -1,6 +1,5 @@
 #!/bin/bash
-##testflorian
-##testbarthelemy
+
 ## COLOR
 GREEN="\\033[1;32m"
 RED="\\033[1;31m"
