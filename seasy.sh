@@ -6,35 +6,41 @@ RED="\\033[1;31m"
 BLUE="\\033[1;34m"
 NC='\033[0m'
 
-check_base()
+
+check_distribution()
 {
-    # Check OS Type
-    os=$(uname -o)
-    echo -e '\E[32m'"Operating System Type : \033[0m"$os
-
-    # Check OS Release Version and Name
-    os_name=$(uname -n)
-    echo -e '\E[32m'"OS Name : \033[0m"$os_name
-
-    os_version=$(uname -v)
-    echo -e '\E[32m'"OS Version : \033[0m" $os_version
-
-    # Check Architecture
-    architecture=$(uname -m)
-    echo -e '\E[32m'"Architecture : \033[0m"$architecture
-
-    # Check Kernel Release
-    kernelrelease=$(uname -r)
-    echo -e '\E[32m'"Kernel Release : \033[0m"$kernelrelease
-
-    # Check hostname
-    echo -e '\E[32m'"Hostname : \033[0m"$HOSTNAME
+    if [ -f /etc/debian_version ]
+       then
+           DISTRIBUTION="Debian $(cat /etc/debian_version)"
+    elif [ -f /etc/redhat-release ] 
+       then
+           DISTRIBUTION=$(cat /etc/redhat-release)
+    else
+       DISTRIBUTION="Fichier de distribution absent" 
+    fi
+    
+    echo -e '\E[32m'"Distribution :\033[0m" $DISTRIBUTION
+    echo -e '\E[32m'"Operating System Type : \033[0m"$(uname -o)
+    echo -e '\E[32m'"Achitecture :\033[0m" $(uname -m)
+    echo -e '\E[32m'"Kernel :\033[0m" $(uname -s)
+    echo -e '\E[32m'"Kernel release :\033[0m" $(uname -r)
+    echo -e '\E[32m'"Kernel version :\033[0m" $(uname -v)
+    echo ""
+    echo -e '\E[32m'"OS Name : \033[0m"$(uname -n)
 }
 
+
+
 check_ip()
-{
+{	
 	echo -e '\E[32m'"Interface Machine : ${NC}"
 	ip -o addr | awk '!/^[0-9]*: ?lo|link\/ether/ {gsub("/", " "); print $2" "$4}'
+}
+
+check_proc()
+{
+        PROCVERSION=$(cat /proc/cpuinfo | grep "model name" |  awk -F ":" '{print $2}')
+        echo -e '\E[32m'"Version processeur : ${NC}" $PROCVERSION
 }
 
 check_ram()
@@ -49,10 +55,12 @@ check_fs()
 	df -h | awk ' {print $6, $5, $2 } ' | column -t | grep -E "/dev|/boot|/etc|/home"
 }
 
-echo ""
-check_base
+echo""
+check_distribution
 echo ""
 check_ip
+echo ""
+check_proc
 echo ""
 check_ram
 echo ""
