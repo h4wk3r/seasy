@@ -31,9 +31,17 @@ check_base()
     echo -e '\E[32m'"Hostname : \033[0m"$HOSTNAME
 }
 
-echo ""
-check_base
+check_ip()
+{
+	echo -e '\E[32m'"Interface Machine : ${NC}"
+	ip -o addr | awk '!/^[0-9]*: ?lo|link\/ether/ {gsub("/", " "); print $2" "$4}'
+}
 
 echo ""
+check_base
+echo ""
+check_ip
+echo ""
+
 exit 0
 
