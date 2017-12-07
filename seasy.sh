@@ -40,9 +40,7 @@ check_ip()
 check_ram()
 {
         echo -e '\E[32m'"Utilisation Mémoire : ${NC}"
-	free -ho |
-	awk '{print (NR==1?"Type":""), $1, $2, $3, (NR==1?"":$4)}' |
-	column -t
+	free -h | awk '{print (NR==1?"Type":""), $1, $2, $3, (NR==1?"":$4)}' | column -t | grep ":"
 }
 
 echo ""
