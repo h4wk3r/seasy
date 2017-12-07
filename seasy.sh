@@ -6,19 +6,9 @@ RED="\\033[1;31m"
 BLUE="\\033[1;34m"
 NC='\033[0m'
 
-## HEADER
-head()
-{
-        echo
-        echo  "  ---------------NICO-BART-FLO---------------"
-        echo
-}
-
-
 check_base()
 {
-    echo " "
-    echo -e "${BLUE}Analyses système : ${NC}"
+    echo ""
     # Check OS Type
     os=$(uname -o)
     echo -e '\E[32m'"Operating System Type : \033[0m"$os
@@ -42,9 +32,6 @@ check_base()
     echo -e '\E[32m'"Hostname : \033[0m"$HOSTNAME
 }
 
-
-#MAIN
-head
 check_base
 
 exit 0
