@@ -40,7 +40,7 @@ check_proc()
 	PROCIDLE=$(top -b -n1 | grep Cpu | awk '{print $8}')
 	let PROCUSAGE=100-$PROCIDLE
         echo -e "${GREEN}Utilisation processeur : ${NC}" 
-	echo "Use processor is "$PROCUSAGE"%"
+	echo "CPU: "$PROCUSAGE"%"
 }
 
 check_ram()
