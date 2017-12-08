@@ -18,6 +18,6 @@ This service is a small utility, its purpose is to centralize all information an
 - mv seasy /usr/local/bin/
 
 > LAUNCH
-- @fy_Wind# seasy
+- abcd@[efgi]# seasy
 
 Codeveloped with [HellionBersSerk](https://github.com/HellionBerSSerK) and [Barthelemy POUSSET](https://github.com/barthelemypousset)
