@@ -22,7 +22,7 @@ check_distribution()
 	echo -e "${CY}Kernel :\033[0m" $(uname -s)
 	echo -e "${CY}Kernel release :\033[0m" $(uname -r)
 	echo -e "${CY}Date :\033[0m" $(date | awk '{print $1, $2, $3, $4, $5}')
-	echo -e "${CY}Uptime :\033[0m" $(uptime | awk '{print $1}')
+	echo -e "${CY}Uptime :\033[0m" $(uptime -p)
 	echo ""
 	echo -e "${GREEN}Utilisateur(s) connecté(s) :\033[0m" 
 	echo $(who | awk '{print $1}' | sort | uniq)
@@ -58,8 +58,7 @@ check_fs()
 
 check_fdisk()
 {
-	#echo -e "${GREEN}Ensemble des disks : ${NC}"
-	fdisk -l | grep -E "Disque /dev/s|Disk /dev/s" | cut -d "," -f 1
+	fdisk -l | grep -E "Disk /dev/s|Disk /dev/s" | cut -d "," -f 1
 }
 
 echo ""
