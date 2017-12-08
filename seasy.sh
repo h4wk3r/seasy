@@ -18,14 +18,14 @@ check_distribution()
     else
        DISTRIBUTION="Fichier de distribution absent" 
     fi
-    echo -e '\E[32m'"OS Name : \033[0m"$(uname -n)    
-    echo -e '\E[32m'"Achitecture :\033[0m" $(uname -m)
-    echo -e '\E[32m'"Kernel :\033[0m" $(uname -s)
-    echo -e '\E[32m'"Kernel release :\033[0m" $(uname -r)
-    echo -e '\E[32m'"Date :\033[0m" $(date | awk '{print $1, $2, $3, $4, $5}')
-    echo -e '\E[32m'"Uptime :\033[0m" $(uptime | awk '{print $1}')
+    echo -e "${GREEN}OS Name : \033[0m"$(uname -n)    
+    echo -e "${GREEN}Achitecture :\033[0m" $(uname -m)
+    echo -e "${GREEN}Kernel :\033[0m" $(uname -s)
+    echo -e "${GREEN}Kernel release :\033[0m" $(uname -r)
+    echo -e "${GREEN}Date :\033[0m" $(date | awk '{print $1, $2, $3, $4, $5}')
+    echo -e "${GREEN}Uptime :\033[0m" $(uptime | awk '{print $1}')
     echo ""
-    echo -e '\E[32m'"Utilisateur(s) connecté(s) :\033[0m" 
+    echo -e "${GREEN}Utilisateur(s) connecté(s) :\033[0m" 
     echo $(who | awk '{print $1}' | sort | uniq)
 
 }
@@ -34,33 +34,36 @@ check_distribution()
 
 check_ip()
 {	
-	echo -e '\E[32m'"Interface Machine : ${NC}"
+	echo -e "${GREEN}Interface Machine : ${NC}"
 	ip -o addr | awk '!/^[0-9]*: ?lo|link\/ether/ {gsub("/", " "); print $2" "$4}'
 }
 
 check_proc()
 {
         PROCVERSION=$(cat /proc/cpuinfo | grep "model name" |  awk -F ":" '{print $2}')
+<<<<<<< HEAD
 	PROCIDLE=$(top -b -n1 | grep Cpu | awk '{print $8}')
         echo -e '\E[32m'"Version processeur : ${NC}" $PROCVERSION
         echo -e '\E[32m'"Utilisation processeur : ${NC}" $PROCIDLE
+=======
+>>>>>>> 9050db5ef714b5cf3631eb6491b7696cf8aa3162
 }
 
 check_ram()
 {
-        echo -e '\E[32m'"Utilisation Mémoire : ${NC}"
+        echo -e "${GREEN}Utilisation Mémoire : ${NC}"
 	free -h | awk '{print (NR==1?"Type":""), $1, $2, $3, (NR==1?"":$4)}' | column -t | grep ":"
 }
 
 check_fs()
 { 
-	echo -e '\E[32m'"FileSystems / Disk : ${NC}"
+	echo -e "${GREEN}FileSystems / Disk : ${NC}"
 	check_fdisk
 	df -h | awk ' {print $6,":  " $5,"sur " $2 " disponible"} '  | grep -E "/dev|/boot|/etc|/home"
 }
 check_fdisk()
 {
-	#echo -e '\E[32m'"Ensemble des disks : ${NC}"
+	#echo -e "${GREEN}Ensemble des disks : ${NC}"
 	fdisk -l | grep -E "Disque /dev/s|Disk /dev/s" | cut -d "," -f 1
 }
 
