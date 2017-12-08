@@ -41,7 +41,7 @@ check_proc()
 	CPUMHZ=$(cat /proc/cpuinfo | grep MHz | awk -F ":" '{print $2}')
 	let PROCUSAGE=100-$PROCIDLE
         echo -e "${GREEN}CPU Infos : ${NC}"
-	echo "CPU Power: $CPUMHZ MHz"
+	echo "CPU Power:$CPUMHZ MHz"
 	echo "CPU usage: $PROCUSAGE%"
 }
 
