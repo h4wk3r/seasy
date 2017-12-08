@@ -15,7 +15,7 @@ check_distribution()
         then
 		DISTRIBUTION=$(cat /etc/redhat-release)
 	else
-		DISTRIBUTION="Fichier de distribution absent" 
+		DISTRIBUTION="Distribution file absent" 
 	fi
 	echo -e "${CY}OS Name : \033[0m"$(uname -n)    
 	echo -e "${CY}Achitecture :\033[0m" $(uname -m)
@@ -24,28 +24,30 @@ check_distribution()
 	echo -e "${CY}Date :\033[0m" $(date | awk '{print $1, $2, $3, $4, $5}')
 	echo -e "${CY}Uptime :\033[0m" $(uptime -p)
 	echo ""
-	echo -e "${GREEN}Utilisateur(s) connecté(s) :\033[0m" 
+	echo -e "${GREEN}Connected user(s):\033[0m" 
 	echo $(who | awk '{print $1}' | sort | uniq)
 
 }
 
 check_ip()
 {
-	echo -e "${GREEN}Interface Machine : ${NC}"
+	echo -e "${GREEN}Network interface(s) : ${NC}"
 	ip -o addr | awk '!/^[0-9]*: ?lo|link\/ether/ {gsub("/", " "); print $2" "$4}'
 }
 
 check_proc()
 {
 	PROCIDLE=$(top -b -n1 | grep Cpu | awk '{print $8}')
+	CPUMHZ=$(cat /proc/cpuinfo | grep MHz | awk -F ":" '{print $2}')
 	let PROCUSAGE=100-$PROCIDLE
-        echo -e "${GREEN}Utilisation processeur : ${NC}" 
-	echo "CPU: "$PROCUSAGE"%"
+        echo -e "${GREEN}CPU Infos : ${NC}"
+	echo "CPU Power: $CPUMHZ MHz"
+	echo "CPU usage: $PROCUSAGE%"
 }
 
 check_ram()
 {
-        echo -e "${GREEN}Utilisation Mémoire : ${NC}"
+        echo -e "${GREEN}Memory usage : ${NC}"
 	free -h | awk '{print (NR==1?"Type":""), $1, $2, $3, (NR==1?"":$4)}' | column -t | grep ":" | grep -v [+]
 }
 
