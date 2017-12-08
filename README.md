@@ -17,4 +17,7 @@ This service is a small utility, its purpose is to centralize all information an
 - chmod 755 seasy
 - mv seasy /usr/local/bin/
 
+> LAUNCH
+- abcd@[efgi]# seasy
+
 Codeveloped with [HellionBersSerk](https://github.com/HellionBerSSerK) and [Barthelemy POUSSET](https://github.com/barthelemypousset)
