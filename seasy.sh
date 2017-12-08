@@ -52,7 +52,12 @@ check_ram()
 check_fs()
 { 
 	echo -e '\E[32m'"Pourcentage d'espace utilisé des FileSystems : ${NC}"
-	df -h | awk ' {print $6, $5, $2 } ' | column -t | grep -E "/dev|/boot|/etc|/home"
+	df -h | awk ' {print $6,":  " $5,"sur " $2 " disponible"} '  | grep -E "/dev|/boot|/etc|/home"
+}
+check_fdisk()
+{
+	echo -e '\E[32m'"Ensemble des disks : ${NC}"
+	fdisk -l | grep -E "Disque /dev/s|Disk /dev/s" | cut -d "," -f 1
 }
 
 echo""
@@ -65,6 +70,8 @@ echo ""
 check_ram
 echo ""
 check_fs
+echo ""
+check_fdisk
 echo ""
 exit 0
 
