@@ -19,12 +19,15 @@ check_distribution()
        DISTRIBUTION="Fichier de distribution absent" 
     fi
     echo -e '\E[32m'"OS Name : \033[0m"$(uname -n)    
-    echo -e '\E[32m'"Distribution :\033[0m" $DISTRIBUTION
-    echo -e '\E[32m'"Operating System Type : \033[0m"$(uname -o)
     echo -e '\E[32m'"Achitecture :\033[0m" $(uname -m)
     echo -e '\E[32m'"Kernel :\033[0m" $(uname -s)
     echo -e '\E[32m'"Kernel release :\033[0m" $(uname -r)
-    echo -e '\E[32m'"Kernel version :\033[0m" $(uname -v)
+    echo -e '\E[32m'"Date :\033[0m" $(date | awk '{print $1, $2, $3, $4, $5}')
+    echo -e '\E[32m'"Uptime :\033[0m" $(uptime | awk '{print $1}')
+    echo ""
+    echo -e '\E[32m'"Utilisateur(s) connecté(s) :\033[0m" 
+    echo $(who | awk '{print $1}' | sort | uniq)
+
 }
 
 
