@@ -24,14 +24,14 @@ check_distribution()
 	echo -e "${CY}Date :\033[0m" $(date | awk '{print $1, $2, $3, $4, $5}')
 	echo -e "${CY}Uptime :\033[0m" $(uptime | awk '{print $1}')
 	echo ""
-	echo -e "${CY}Utilisateur(s) connecté(s) :\033[0m" 
+	echo -e "${GREEN}Utilisateur(s) connecté(s) :\033[0m" 
 	echo $(who | awk '{print $1}' | sort | uniq)
 
 }
 
 check_ip()
 {
-	echo -e "${CY}Interface Machine : ${NC}"
+	echo -e "${GREEN}Interface Machine : ${NC}"
 	ip -o addr | awk '!/^[0-9]*: ?lo|link\/ether/ {gsub("/", " "); print $2" "$4}'
 }
 
@@ -39,18 +39,19 @@ check_proc()
 {
 	PROCIDLE=$(top -b -n1 | grep Cpu | awk '{print $8}')
 	let PROCUSAGE=100-$PROCIDLE
-        echo -e "${CY}Utilisation processeur : ${NC}" $PROCUSAGE"%"
+        echo -e "${GREEN}Utilisation processeur : ${NC}" 
+	echo "Use processor is "$PROCUSAGE"%"
 }
 
 check_ram()
 {
-        echo -e "${CY}Utilisation Mémoire : ${NC}"
+        echo -e "${GREEN}Utilisation Mémoire : ${NC}"
 	free -h | awk '{print (NR==1?"Type":""), $1, $2, $3, (NR==1?"":$4)}' | column -t | grep ":" | grep -v [+]
 }
 
 check_fs()
 { 
-	echo -e "${CY}FileSystems / Disk : ${NC}"
+	echo -e "${GREEN}FileSystems / Disk : ${NC}"
 	check_fdisk
 	df -h | awk ' {print $6,":  " $5,"sur " $2 " disponible"} '  | grep -E "/dev|/boot|/etc|/home"
 }
