@@ -41,12 +41,9 @@ check_ip()
 check_proc()
 {
         PROCVERSION=$(cat /proc/cpuinfo | grep "model name" |  awk -F ":" '{print $2}')
-<<<<<<< HEAD
 	PROCIDLE=$(top -b -n1 | grep Cpu | awk '{print $8}')
         echo -e '\E[32m'"Version processeur : ${NC}" $PROCVERSION
         echo -e '\E[32m'"Utilisation processeur : ${NC}" $PROCIDLE
-=======
->>>>>>> 9050db5ef714b5cf3631eb6491b7696cf8aa3162
 }
 
 check_ram()
