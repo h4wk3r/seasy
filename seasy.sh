@@ -41,9 +41,8 @@ check_ip()
 check_proc()
 {
 	PROCIDLE=$(top -b -n1 | grep Cpu | awk '{print $8}')
-	PROCUSAGE=100-$PROCIDLE
-        echo -e "${GREEN}Version processeur : ${NC}" $PROCVERSION
-        echo -e "${GREEN}Utilisation processeur : ${NC}" $PROCIDLE
+	let PROCUSAGE=100-$PROCIDLE
+        echo -e "${GREEN}Utilisation processeur : ${NC}" $PROCUSAGE"%"
 }
 
 check_ram()
