@@ -18,15 +18,13 @@ check_distribution()
     else
        DISTRIBUTION="Fichier de distribution absent" 
     fi
-    
+    echo -e '\E[32m'"OS Name : \033[0m"$(uname -n)    
     echo -e '\E[32m'"Distribution :\033[0m" $DISTRIBUTION
     echo -e '\E[32m'"Operating System Type : \033[0m"$(uname -o)
     echo -e '\E[32m'"Achitecture :\033[0m" $(uname -m)
     echo -e '\E[32m'"Kernel :\033[0m" $(uname -s)
     echo -e '\E[32m'"Kernel release :\033[0m" $(uname -r)
     echo -e '\E[32m'"Kernel version :\033[0m" $(uname -v)
-    echo ""
-    echo -e '\E[32m'"OS Name : \033[0m"$(uname -n)
 }
 
 
@@ -51,12 +49,13 @@ check_ram()
 
 check_fs()
 { 
-	echo -e '\E[32m'"Pourcentage d'espace utilisé des FileSystems : ${NC}"
+	echo -e '\E[32m'"FileSystems / Disk : ${NC}"
+	check_fdisk
 	df -h | awk ' {print $6,":  " $5,"sur " $2 " disponible"} '  | grep -E "/dev|/boot|/etc|/home"
 }
 check_fdisk()
 {
-	echo -e '\E[32m'"Ensemble des disks : ${NC}"
+	#echo -e '\E[32m'"Ensemble des disks : ${NC}"
 	fdisk -l | grep -E "Disque /dev/s|Disk /dev/s" | cut -d "," -f 1
 }
 
@@ -70,8 +69,6 @@ echo ""
 check_ram
 echo ""
 check_fs
-echo ""
-check_fdisk
 echo ""
 exit 0
 
