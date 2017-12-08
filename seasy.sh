@@ -2,8 +2,12 @@
 
 ## COLOR
 GREEN="\\033[1;32m"
-RED="\\033[1;31m"
+GR="\\033[1;37m"
 BLUE="\\033[1;34m"
+YEL="\\033[1;33m"
+PI="\\033[1;35m"
+CY="\\033[1;36m"
+
 NC='\033[0m'
 
 check_distribution()
@@ -17,34 +21,34 @@ check_distribution()
 	else
 		DISTRIBUTION="Fichier de distribution absent" 
 	fi
-	echo -e "${GREEN}OS Name : \033[0m"$(uname -n)    
-	echo -e "${GREEN}Achitecture :\033[0m" $(uname -m)
-	echo -e "${GREEN}Kernel :\033[0m" $(uname -s)
-	echo -e "${GREEN}Kernel release :\033[0m" $(uname -r)
-	echo -e "${GREEN}Date :\033[0m" $(date | awk '{print $1, $2, $3, $4, $5}')
-	echo -e "${GREEN}Uptime :\033[0m" $(uptime | awk '{print $1}')
+	echo -e "${CY}OS Name : \033[0m"$(uname -n)    
+	echo -e "${CY}Achitecture :\033[0m" $(uname -m)
+	echo -e "${CY}Kernel :\033[0m" $(uname -s)
+	echo -e "${CY}Kernel release :\033[0m" $(uname -r)
+	echo -e "${CY}Date :\033[0m" $(date | awk '{print $1, $2, $3, $4, $5}')
+	echo -e "${CY}Uptime :\033[0m" $(uptime | awk '{print $1}')
 	echo ""
-	echo -e "${GREEN}Utilisateur(s) connecté(s) :\033[0m" 
+	echo -e "${GR}Utilisateur(s) connecté(s) :\033[0m" 
 	echo $(who | awk '{print $1}' | sort | uniq)
 
 }
 
 check_ip()
 {
-	echo -e "${GREEN}Interface Machine : ${NC}"
+	echo -e "${YEL}Interface Machine : ${NC}"
 	ip -o addr | awk '!/^[0-9]*: ?lo|link\/ether/ {gsub("/", " "); print $2" "$4}'
 }
 
 check_proc()
 {
 	PROCIDLE=$(top -b -n1 | grep Cpu | awk '{print $8}')
-        echo -e "${GREEN}Utilisation processeur : ${NC}" $PROCIDLE
+        echo -e "${BLUE}Utilisation processeur : ${NC}" $PROCIDLE
 }
 
 check_ram()
 {
-        echo -e "${GREEN}Utilisation Mémoire : ${NC}"
-	free -h | awk '{print (NR==1?"Type":""), $1, $2, $3, (NR==1?"":$4)}' | column -t | grep ":"
+        echo -e "${PI}Utilisation Mémoire : ${NC}"
+	free -h | awk '{print (NR==1?"Type":""), $1, $2, $3, (NR==1?"":$4)}' | column -t | grep ":" | grep -v [+]
 }
 
 check_fs()
