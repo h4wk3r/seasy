@@ -41,8 +41,11 @@ check_ip()
 check_proc()
 {
 	PROCIDLE=$(top -b -n1 | grep Cpu | awk '{print $8}')
+	CPUMHZ=$(cat /proc/cpuinfo | grep MHz | awk -F ":" '{print $2}')
 	let PROCUSAGE=100-$PROCIDLE
-        echo -e "${GREEN}Utilisation processeur : ${NC}" $PROCUSAGE"%"
+        echo -e "${GREEN}Utilisation processeur : ${NC}"
+	echo "CPU Power: $CPUMHZ MHz"
+	echo "CPU: $PROCUSAGE%"
 }
 
 check_ram()
